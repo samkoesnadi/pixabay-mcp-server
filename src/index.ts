@@ -302,17 +302,27 @@ class PixabayMCPServer {
   }
 
   private async searchImages(params: PixabaySearchParams) {
+    // Filter out undefined/null values and convert to strings
+    const filteredParams = Object.fromEntries(
+      Object.entries(params)
+        .filter(([_, value]) => value !== undefined && value !== null && value !== "")
+        .map(([key, value]) => [key, String(value)])
+    );
+
     const searchParams = new URLSearchParams({
       key: this.config.apiKey,
-      ...Object.fromEntries(
-        Object.entries(params).map(([key, value]) => [key, String(value)])
-      ),
+      ...filteredParams,
     });
 
-    const response = await fetch(`${this.config.baseUrl}?${searchParams}`);
+    const url = `${this.config.baseUrl}?${searchParams}`;
+    console.error(`Pixabay API Request: ${url}`);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`Pixabay API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error(`Pixabay API Error Response: ${errorText}`);
+      throw new Error(`Pixabay API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -328,17 +338,27 @@ class PixabayMCPServer {
   }
 
   private async searchVideos(params: PixabayVideoSearchParams) {
+    // Filter out undefined/null values and convert to strings
+    const filteredParams = Object.fromEntries(
+      Object.entries(params)
+        .filter(([_, value]) => value !== undefined && value !== null && value !== "")
+        .map(([key, value]) => [key, String(value)])
+    );
+
     const searchParams = new URLSearchParams({
       key: this.config.apiKey,
-      ...Object.fromEntries(
-        Object.entries(params).map(([key, value]) => [key, String(value)])
-      ),
+      ...filteredParams,
     });
 
-    const response = await fetch(`${this.config.videosUrl}?${searchParams}`);
+    const url = `${this.config.videosUrl}?${searchParams}`;
+    console.error(`Pixabay Video API Request: ${url}`);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`Pixabay API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error(`Pixabay Video API Error Response: ${errorText}`);
+      throw new Error(`Pixabay API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
