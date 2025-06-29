@@ -67,6 +67,8 @@ class PixabayMCPServer {
       {
         capabilities: {
           tools: {},
+          resources: {},
+          prompts: {},
         },
       }
     );
