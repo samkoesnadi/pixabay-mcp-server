@@ -5,7 +5,6 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
-  Tool,
 } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
 
@@ -247,7 +246,7 @@ class PixabayMCPServer {
               required: ["id"],
             },
           },
-        ] satisfies Tool[],
+        ],
       };
     });
 
