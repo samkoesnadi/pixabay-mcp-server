@@ -5,6 +5,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
+  ListResourcesRequestSchema,
+  ListPromptsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
 
@@ -280,6 +282,20 @@ class PixabayMCPServer {
           ],
         };
       }
+    });
+
+    // Handle resources list (return empty list since we don't provide resources)
+    this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
+      return {
+        resources: [],
+      };
+    });
+
+    // Handle prompts list (return empty list since we don't provide prompts)
+    this.server.setRequestHandler(ListPromptsRequestSchema, async () => {
+      return {
+        prompts: [],
+      };
     });
   }
 
