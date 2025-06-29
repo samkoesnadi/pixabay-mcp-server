@@ -39,10 +39,26 @@ You'll need a Pixabay API key to use this server:
 1. Sign up at [Pixabay](https://pixabay.com/accounts/register/)
 2. Go to [Pixabay API page](https://pixabay.com/api/docs/)
 3. Get your API key
-4. Set the environment variable:
+4. **Set the system environment variable** (recommended for security):
 
+**For bash/zsh** (add to ~/.bashrc, ~/.zshrc, or ~/.bash_profile):
 ```bash
 export PIXABAY_API_KEY="your-api-key-here"
+```
+
+**For fish** (add to ~/.config/fish/config.fish):
+```fish
+set -gx PIXABAY_API_KEY "your-api-key-here"
+```
+
+**For Windows** (Command Prompt):
+```cmd
+setx PIXABAY_API_KEY "your-api-key-here"
+```
+
+After setting the environment variable, restart your terminal or run:
+```bash
+source ~/.zshrc  # or your shell's config file
 ```
 
 ### Claude Desktop Configuration
@@ -52,6 +68,19 @@ Add the server to your Claude Desktop configuration file:
 **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
+**Recommended (using system environment variable):**
+```json
+{
+  "mcpServers": {
+    "pixabay": {
+      "command": "node",
+      "args": ["/path/to/pixabay-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+**Alternative (less secure - API key in config file):**
 ```json
 {
   "mcpServers": {
@@ -65,6 +94,8 @@ Add the server to your Claude Desktop configuration file:
   }
 }
 ```
+
+**Security Note**: The recommended approach uses your system environment variable, keeping the API key out of configuration files.
 
 ## Available Tools
 
