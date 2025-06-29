@@ -2,6 +2,8 @@
 
 A Model Context Protocol (MCP) server that provides access to the Pixabay API for searching and retrieving royalty-free images and videos.
 
+📖 **[Complete Setup and Usage Guide](https://unlockmcp.com/guides/pixabay-mcp-server-complete-setup-guide/)** - Step-by-step tutorial with examples and troubleshooting
+
 ## Features
 
 - **Image Search**: Search through millions of royalty-free images
